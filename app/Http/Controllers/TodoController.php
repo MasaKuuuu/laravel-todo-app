@@ -19,13 +19,15 @@ class TodoController extends Controller
     }
 
     public function edit(Request $request){
-        Todo::where('id', $request->id)
-        ->update(['task' => $request->task]);
+        $todo = Todo::find($request->id);
+        $todo->task = $request->task;
+        $todo->save();
         return $this->index();
     }
 
     public function delete(Request $request){
-        Todo::destroy($request->id);
+        $todo = Todo::find($request->id);
+        $todo->delete();
         return $this->index();
     }
 }
